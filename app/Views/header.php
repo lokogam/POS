@@ -77,6 +77,7 @@
                         <div class="collapse" id="sudAdministrar" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<?php echo base_url();?>/configuraciones">Configuracion</a>
+                                <a class="nav-link" href="<?php echo base_url();?>/usuarios">Usuarios</a>
                             </nav>
                         </div>
 
