@@ -10,7 +10,7 @@ use App\Models\CajasModel;
 class Usuarios extends BaseController
 {
     protected $usuarios, $cajas, $roles;
-    protected $reglas;
+    protected $reglas, $reglaslogin, $reglaCambia;
 
     public function __construct()
     {
@@ -50,6 +50,34 @@ class Usuarios extends BaseController
                 'rules' => 'required',
                 'errors' => ['required' => 'El campo {field} es obligatorio.']
             ],
+
+        ];
+
+        $this->reglaslogin = [
+            'usuario' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'El campo {field} es obligatorio.'
+                ]
+            ],
+            'password' => [
+                'rules' => 'required',
+                'errors' => ['required' => 'El campo {field} es obligatorio.']
+            ]
+        ];
+
+        $this->reglasCambia = [
+            'password' => [
+                'rules' => 'required',
+                'errors' => ['required' => 'El campo {field} es obligatorio.']
+            ],
+            'repassword' => [
+                'rules' => 'required|matches[password]',
+                'errors' => [
+                    'required' => 'El campo {field} es obligatorio.',
+                    'matches' => 'Las contraseñas no coinciden.'
+                ]
+            ]
         ];
     }
 
@@ -103,8 +131,10 @@ class Usuarios extends BaseController
         } else {
             $roles = $this->roles->where('activo', 1)->findAll();
             $cajas = $this->cajas->where('activo', 1)->findAll();
-            $data = ['titulo' => 'Agregar usuario', 'cajas' => $cajas, 'roles' => $roles, 
-        'validation' => $this->validator];
+            $data = [
+                'titulo' => 'Agregar usuario', 'cajas' => $cajas, 'roles' => $roles,
+                'validation' => $this->validator
+            ];
             echo view('header');
             echo view('usuarios/nuevo', $data);
             echo view('footer');
@@ -157,5 +187,78 @@ class Usuarios extends BaseController
     public function login()
     {
         echo view('login');
+    }
+
+    public function valida()
+    {
+        if ($this->request->getMethod() == "post" && $this->validate($this->reglaslogin)) {
+            $usuario = $this->request->getPost('usuario');
+            $password = $this->request->getPost('password');
+            $datoUsuario = $this->usuarios->where('usuario', $usuario)->first();
+
+            if ($datoUsuario != null) {
+                if (password_verify($password, $datoUsuario['password'])) {
+                    $datosSesion =
+                        [
+                            'id_usuario' => $datoUsuario['id'],
+                            'nombre' => $datoUsuario['nombre'],
+                            'id_caja' => $datoUsuario['id_caja'],
+                            'id_roles' => $datoUsuario['id_roles']
+                        ];
+
+                    $session = session();
+                    $session->set($datosSesion);
+                    return redirect()->to(base_url() . '/configuraciones');
+                } else {
+                    $data['error'] = "las contraseñas no coinciden";
+                    echo view('login', $data);
+                }
+            } else {
+                $data['error'] = "El usuario no existe";
+                echo view('login', $data);
+            }
+        } else {
+            $data = ['validation' => $this->validator];
+            echo view('login', $data);
+        }
+    }
+
+    public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to(base_url());
+    }
+
+    public function cambia_password()
+    {
+        $session = session();
+        $usuario = $this->usuarios->where('id', $session->id_usuario)->first();
+        $data = ['titulo' => 'Cambiar contraseña', 'usuario' => $usuario];
+        echo view('header');
+        echo view('usuarios/cambia_password', $data);
+        echo view('footer');
+    }
+
+    public function actualizar_password()
+    {
+        if ($this->request->getMethod() == "post" && $this->validate($this->reglasCambia)) {
+            $session = session();
+            $idUsuario = $session->id_usuario;
+            $hash = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+            $this->usuarios->update($idUsuario, ['password' => $hash]);
+            $usuario = $this->usuarios->where('id', $session->id_usuario)->first();
+            $data = ['titulo' => 'Cambiar contraseña', 'usuario' => $usuario, 'mensaje' => 'contraseña actualisadad'];
+            echo view('header');
+            echo view('usuarios/cambia_password', $data);
+            echo view('footer');
+        } else {
+            $session = session();
+            $usuario = $this->usuarios->where('id', $session->id_usuario)->first();
+            $data = ['titulo' => 'Cambiar contraseña', 'usuario' => $usuario, 'validation' => $this->validator];
+            echo view('header');
+            echo view('usuarios/cambia_password', $data);
+            echo view('footer');
+        }
     }
 }
