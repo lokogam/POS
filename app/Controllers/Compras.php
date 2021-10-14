@@ -38,7 +38,7 @@ class Compras extends BaseController
 
     public function nuevo()
     {
-        $data = ['titulo' => 'Agregar unidad'];
+        
         echo view('header');
         echo view('compras/nuevo');
         echo view('footer');

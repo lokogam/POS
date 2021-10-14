@@ -141,16 +141,12 @@ class Usuarios extends BaseController
         }
     }
 
-    public function editar($id, $valid = null)
-    {
-        $unidad = $this->usuarios->where('id', $id)->first();
-
-        if ($valid != null) {
-            $data = ['titulo' => 'Editar unidad', 'datos' => $unidad, 'validation' => $valid];
-        } else {
-            $data = ['titulo' => 'Editar unidad', 'datos' => $unidad];
-        }
-
+    public function editar($id)
+    {   
+        $cajas = $this->cajas->where('activo', 1)->findAll();
+        $roles = $this->roles->where('activo', 1)->findAll();
+        $usuario = $this->usuarios->where('id', $id)->first();
+        $data = ['titulo' => 'Editar usuario', 'cajas' => $cajas, 'roles' => $roles, 'usuario' => $usuario];
         echo view('header');
         echo view('usuarios/editar', $data);
         echo view('footer');
@@ -159,11 +155,15 @@ class Usuarios extends BaseController
     public function actualizar()
     {
         if ($this->request->getMethod() == "post" && $this->validate($this->reglas)) {
+            $hash = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
             $this->usuarios->update(
                 $this->request->getPost('id'),
                 [
+                    'usuario' => $this->request->getPost('usuario'),
+                    'password' => $hash,
                     'nombre' => $this->request->getPost('nombre'),
-                    'nombre_corto' => $this->request->getPost('nombre_corto')
+                    'id_caja' => $this->request->getPost('id_caja'),
+                    'id_roles' => $this->request->getPost('id_roles'),
                 ]
             );
             return redirect()->to(base_url() . '/usuarios');

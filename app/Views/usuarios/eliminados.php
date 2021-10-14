@@ -4,7 +4,7 @@
             <h3 class="mt-4"><?php echo $titulo; ?> </h3>
             <div>
                 <p>
-                    <a href="<?php echo base_url(); ?>/unidades" class="btn btn-warning">Unidades</a>
+                    <a href="<?php echo base_url(); ?>/usuarios" class="btn btn-warning">Unidades</a>
                 </p>
             </div>
 
@@ -23,21 +23,21 @@
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Nombre corto</th>
-                                <th></th>
+                                <th>Id           </th>
+                                <th>Nombre       </th>
+                                <th>Nombre corto </th>
+                                <th>             </th>
                                 
                             </tr>
                         </tfoot>
                         <tbody>
                             <?php foreach ($datos as $dato) { ?>
                                 <tr>
-                                    <td><?php echo $dato['id']; ?></td>
-                                    <td><?php echo $dato['nombre']; ?></td>
-                                    <td><?php echo $dato['nombre_corto']; ?></td>
+                                    <td><?php echo $dato['id'];      ?></td>
+                                    <td><?php echo $dato['usuario']; ?></td>
+                                    <td><?php echo $dato['nombre'];  ?></td>
 
-                                    <td><a href="<?php echo base_url(). '/unidades/reingresar/'.$dato 
+                                    <td><a href="<?php echo base_url(). '/usuarios/reingresar/'.$dato 
                                     ['id']; ?>" class="btn btn-warning"><i class="fas fa-upload"></i></a> </td>
 
                                     

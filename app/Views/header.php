@@ -15,6 +15,7 @@
     <link href="<?php echo base_url();?>/css/header.css" rel="stylesheet" />
     <link href="<?php echo base_url();?>/css/styles.css" rel="stylesheet" />
     <script src="<?php echo base_url();?>/js/all.min.js"></script>
+    <script src="<?php echo base_url();?>/js/jquery-3.5.1.slim.min.js"></script>
     
 </head>
 

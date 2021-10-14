@@ -19,7 +19,8 @@
                         <div class="col-12 col-sm-6">
 
                             <label for="">Nombre</label>
-                            <input class="form-control" id="nombre" name="nombre" type="text"  value="<?php echo $producto['nombre'];?>" required/>
+                            <input class="form-control" id="nombre" name="nombre" type="text"
+                            value="<?php echo $producto['nombre'];?>" required/>
 
                         </div>
                     </div>
