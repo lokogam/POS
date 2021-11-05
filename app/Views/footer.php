@@ -15,10 +15,14 @@
 </div>
 </div>
 
+
+
 <script src="<?php echo base_url();?>/js/bootstrap.bundle.min.js" ></script>
 <script src="<?php echo base_url();?>/js/scripts.js"></script>
 <script src="<?php echo base_url();?>/js/simple-datatables@latest.js" ></script>
 <script src="<?php echo base_url();?>/js/datatables-simple-demo.js"></script>
+
+
 
 <script>
     var modalconfirma = document.getElementById('modalconfirma')

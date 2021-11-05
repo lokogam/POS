@@ -1,5 +1,5 @@
-<?php 
-    $user_session = session();
+<?php
+$user_session = session();
 ?>
 
 <!DOCTYPE html>
@@ -12,11 +12,16 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dugwuai</title>
-    <link href="<?php echo base_url();?>/css/header.css" rel="stylesheet" />
-    <link href="<?php echo base_url();?>/css/styles.css" rel="stylesheet" />
-    <script src="<?php echo base_url();?>/js/all.min.js"></script>
-    <script src="<?php echo base_url();?>/js/jquery-3.5.1.slim.min.js"></script>
+
+    <link href="<?php echo base_url(); ?>/css/1/styles.css" rel="stylesheet" />
     
+    <link href="<?php echo base_url(); ?>/css/header.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>/css/styles.css" rel="stylesheet" />
+
+    <script src="<?php echo base_url(); ?>/js/all.min.js"></script>
+    <script src="<?php echo base_url(); ?>/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="<?php echo base_url(); ?>/js/1/jquery-3.6.0.min.js"></script>
+    <script src="<?php echo base_url(); ?>/js/1/jquery-ui.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -35,15 +40,14 @@
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false"><?php echo $user_session->nombre ;?><i class="fas fa-user fa-fw"></i></a>
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $user_session->nombre; ?><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Comfiguraciones</a></li>
-                    <li><a class="dropdown-item" href="<?php echo base_url();?>/usuarios/cambia_password">cambiar contraseña</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url(); ?>/usuarios/cambia_password">cambiar contraseña</a></li>
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="<?php echo base_url();?>/usuarios/logout">cerrar sesion</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url(); ?>/usuarios/logout">cerrar sesion</a></li>
                 </ul>
             </li>
         </ul>
@@ -53,49 +57,46 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" 
-                        aria-expanded="false" aria-controls="collapseLayouts">
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-basket"></i></div>
                             Productos
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo base_url();?>/productos">Productos</a>
-                                <a class="nav-link" href="<?php echo base_url();?>/categorias">Categorias</a>
-                                <a class="nav-link" href="<?php echo base_url();?>/unidades">Unidades</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>/productos">Productos</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>/categorias">Categorias</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>/unidades">Unidades</a>
                             </nav>
                         </div>
 
-                        <a class="nav-link" href="<?php echo base_url();?>/clientes">
-                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        <a class="nav-link" href="<?php echo base_url(); ?>/clientes">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                             Clientes
                         </a>
 
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#menuCompras" 
-                        aria-expanded="false" aria-controls="menuCompras">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#menuCompras" aria-expanded="false" aria-controls="menuCompras">
                             <div class="sb-nav-link-icon"><i class="fas fafas fa-cash-register"></i></div>
                             Compras
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="menuCompras" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo base_url();?>/compras/nuevo">Nueva compra</a>
-                                <a class="nav-link" href="<?php echo base_url();?>/compras">Compras</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>/compras/nuevo">Nueva compra</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>/compras">Compras</a>
                             </nav>
                         </div>
 
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#sudAdministrar" 
-                        aria-expanded="false" aria-controls="sudAdministrar">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#sudAdministrar" aria-expanded="false" aria-controls="sudAdministrar">
                             <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
                             Administracion
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="sudAdministrar" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo base_url();?>/configuraciones">Configuracion</a>
-                                <a class="nav-link" href="<?php echo base_url();?>/usuarios">Usuarios</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>/configuraciones">Configuracion</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>/usuarios">Usuarios</a>
                             </nav>
                         </div>
 

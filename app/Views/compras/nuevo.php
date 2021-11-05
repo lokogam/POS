@@ -1,11 +1,9 @@
+<?php $id_compra = uniqid(); ?>
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid ">
 
-
             <form method="POST" action="<?php echo base_url(); ?>/compras/guarda" autocomplete="off">
-
-
 
                 <div>
                     <br>
@@ -17,8 +15,7 @@
                         <div class="col-12 col-sm-4">
                             <input type="hidden" id="id_producto" name="id_producto">
                             <label for="">Codigo</label>
-                            <input class="form-control" id="codigo" name="codigo" type="text" placeholder="Escribe el codigo y enter"
-                            onkeyup="buscarProducto(event, this, this.value)" autofocus />
+                            <input class="form-control" id="codigo" name="codigo" type="text" placeholder="Escribe el codigo y enter" onkeyup="buscarProducto(event, this, this.value)" autofocus />
                             <label for="codigo" id="resultado_error" style="color: red"></label>
                         </div>
 
@@ -44,7 +41,7 @@
 
                         <div class="col-12 col-sm-4">
                             <label for="">Precio de compra</label>
-                            <input class="form-control" id="precio_compra" name="precio_compra" type="text" placeholder="Escribe el codigo y enter" autofocus />
+                            <input class="form-control" id="precio_compra" name="precio_compra" type="text" disabled />
                         </div>
 
                         <div class="col-12 col-sm-4">
@@ -54,7 +51,7 @@
 
                         <div class="col-12 col-sm-4">
                             <label><br>&nbsp;</label>
-                            <button id="agregar_producto" name="agregar_producto" type="button" class="btn btn-primary">Agregar producto</button>
+                            <button id="agregar_producto" name="agregar_producto" type="button" class="btn btn-primary" onclick="agregarProducto(id_producto.value, cantidad.value, '<?php echo $id_compra; ?>')">Agregar producto</button>
                         </div>
 
                     </div>
@@ -62,29 +59,27 @@
 
                 <div><br></div>
 
-                <style>
-                    .thead-green {
-                        background-color: rgb(0, 99, 71);
-                        color: white;
-                    }
-                </style>
 
-                
-                    <div class="row">
-                        <table id="tablaProductos" class="table table-hover table-striped table-sm table-responsive tablaProductos" width="100%">
-                            <thead class="thead-green">
-                                <th>#</th>
-                                <th>Codigo</th>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Total</th>
-                                <th width="1%"></th>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table id="tablaProductos" class="table table-hover table-striped table-sm" width="100%">
+                                <thead class="thead-dark">
+                                    <th>#</th>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Total</th>
+                                    <th width="1%"></th>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
-                
+                </div>
+
+
 
 
                 <div class="row">
@@ -101,33 +96,34 @@
     </main>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
 
         });
-        function buscarProducto(e, tagCodigo, codigo){
+
+        function buscarProducto(e, tagCodigo, codigo) {
             var enterkey = 13;
 
-            if(codigo != ''){
-                if(e.which == enterkey){
+            if (codigo != '') {
+                if (e.which == enterkey) {
                     $.ajax({
                         url: '<?php echo base_url(); ?>/productos/buscarPorCodigo/' + codigo,
                         dataType: 'json',
-                        success: function(resultado){
-                            if(resultado == 0){
+                        success: function(resultado) {
+                            if (resultado == 0) {
                                 $(tagCodigo).val('');
-                            }else{
+                            } else {
                                 $(tagCodigo).removeClass('has-error');
 
                                 $("#resultado_error").html(resultado.error);
 
-                                if(resultado.exite){
+                                if (resultado.existe) {
                                     $("#id_producto").val(resultado.datos.id);
                                     $("#nombre").val(resultado.datos.nombre);
                                     $("#cantidad").val(1);
                                     $("#precio_compra").val(resultado.datos.precio_compra);
                                     $("#subtotal").val(resultado.datos.precio_compra);
                                     $("#cantidad").focus();
-                                }else {
+                                } else {
                                     $("#id_producto").val('');
                                     $("#nombre").val('');
                                     $("#cantidad").val('');
@@ -138,6 +134,33 @@
                         }
                     });
                 }
+            }
+        }
+
+        function agregarProducto(id_producto, cantidad, id_compra) {
+            if (id_producto != null && id_compra != 0 && cantidad > 0) {
+                $.ajax({
+                    url: '<?php echo base_url(); ?>/TemporalCompra/inserta/' + id_producto + "/" + cantidad + "/" + id_compra,
+                    success: function(resultado) {
+                        if (resultado == 0) {
+
+                        } else {
+
+                            var resultado = JSON.parse(resultado);
+                            if (resultado.error == '') {
+                                $("#tablaProductos tbody").empty();
+                                $("#tablaProductos tbody").append(resultado.datos);
+                                $("#total").val(resultado.total);
+                                $("#id_producto").val('');
+                                $("#codigo").val('');
+                                $("#nombre").val('');
+                                $("#cantidad").val('');
+                                $("#precio_compra").val('');
+                                $("#subtotal").val('');
+                            }
+                        }
+                    }
+                });
             }
         }
     </script>

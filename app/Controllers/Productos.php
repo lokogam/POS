@@ -144,11 +144,11 @@ class Productos extends BaseController
         $res['error'] ='';
 
         if($datos){
-            $res['rdatos'] = $datos;
+            $res['datos'] = $datos;
             $res['existe'] = true;
         } else{
             $res['error'] = 'No existe el producto';
-            $res['exite'] =false;
+            $res['existe'] =false;
         }
 
         echo json_encode($res);
