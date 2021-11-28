@@ -51,7 +51,8 @@
 
                         <div class="col-12 col-sm-4">
                             <label><br>&nbsp;</label>
-                            <button id="agregar_producto" name="agregar_producto" type="button" class="btn btn-primary" onclick="agregarProducto(id_producto.value, cantidad.value, '<?php echo $id_compra; ?>')">Agregar producto</button>
+                            <button id="agregar_producto" name="agregar_producto" type="button" class="btn btn-primary" 
+                            onclick="agregarProducto(id_producto.value, cantidad.value, '<?php echo $id_compra; ?>')">Agregar producto</button>
                         </div>
 
                     </div>

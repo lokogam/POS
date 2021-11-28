@@ -32,7 +32,7 @@ class TemporalCompra extends BaseController
                 $subtotal = $cantidad * $producto['precio_compra'];
 
                 $this->temporal_compra->save([
-                    'filio' => $id_compra,
+                    'folio' => $id_compra,
                     'id_producto' => $id_producto,
                     'codigo' => $producto['codigo'],
                     'nombre' => $producto['nombre'],
@@ -70,6 +70,7 @@ class TemporalCompra extends BaseController
         foreach($resultado as $row){
             $numFila++;
             $fila .= "<tr id='fila".$numFila."'>";
+            $fila .="<td>".$numFila."</td>";
             $fila .="<td>".$row['codigo']."</td>";
             $fila .="<td>".$row['nombre']."</td>";
             $fila .="<td>".$row['precio']."</td>";
