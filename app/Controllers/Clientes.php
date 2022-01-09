@@ -13,10 +13,7 @@ class Clientes extends BaseController
     public function __construct()
     {
         $this->clientes = new ClientesModel();
-
-
         helper(['form']);
-
         $this->reglas = [
             'nombre' => [
                 'rules' => 'required|is_unique[clientes.nombre]',
@@ -31,7 +28,6 @@ class Clientes extends BaseController
     {
         $clientes = $this->clientes->where('activo', $activo)->findAll();
         $data = ['titulo' => 'Clientes', 'datos' => $clientes];
-
         echo view('header');
         echo view('clientes/clientes', $data);
         echo view('footer');
@@ -41,7 +37,6 @@ class Clientes extends BaseController
     {
         $clientes = $this->clientes->where('activo', $activo)->findAll();
         $data = ['titulo' => 'Clientes eliminadas', 'datos' => $clientes];
-
         echo view('header');
         echo view('clientes/eliminados', $data);
         echo view('footer');
@@ -49,7 +44,6 @@ class Clientes extends BaseController
 
     public function nuevo()
     {
-
         $data = ['titulo' => 'Agregar  clientes'];
         echo view('header');
         echo view('clientes/nuevo', $data);
@@ -69,7 +63,6 @@ class Clientes extends BaseController
             return redirect()->to(base_url() . '/clientes');
         } else {
             $data = ['titulo' => 'Agregar clientes' , 'validation' => $this->validator];
-
             echo view('header');
             echo view('clientes/nuevo', $data);
             echo view('footer');
@@ -87,16 +80,12 @@ class Clientes extends BaseController
 
     public function actulizar()
     {
-
-
         $this->clientes->update($this->request->getPost('id'), [
             'nombre' => $this->request->getPost('nombre'),
             'direccion' => $this->request->getPost('direccion'),
             'telefono' => $this->request->getPost('telefono'),
             'correo' => $this->request->getPost('correo')
         ]);
-
-
         return redirect()->to(base_url() . '/clientes');
     }
 

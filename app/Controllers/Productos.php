@@ -104,8 +104,6 @@ class Productos extends BaseController
 
     public function actulizar()
     {
-
-
         $this->productos->update($this->request->getPost('id'), [
             'codigo' => $this->request->getPost('codigo'),
             'nombre' => $this->request->getPost('nombre'),
@@ -116,8 +114,6 @@ class Productos extends BaseController
             'id_unidad' => $this->request->getPost('id_unidad'),
             'id_categoria' => $this->request->getPost('id_categoria')
         ]);
-
-
         return redirect()->to(base_url() . '/productos');
     }
 
